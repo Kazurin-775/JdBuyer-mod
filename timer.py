@@ -5,16 +5,17 @@ from datetime import datetime
 
 class Timer(object):
 
-    def __init__(self, buyTime, sleepInterval=0.5):
+    def __init__(self, buyTime, sleepInterval=1):
 
         # '2018-09-28 22:45:50'
         self.buy_time = datetime.strptime(buyTime, "%Y-%m-%d %H:%M:%S")
         self.sleepInterval = sleepInterval
 
     def start(self):
-        now_time = datetime.now
         while True:
-            if now_time() >= self.buy_time:
+            now = datetime.now()
+            if now >= self.buy_time:
                 break
             else:
-                time.sleep(self.sleepInterval)
+                print(now, ', sleep for', min(self.sleepInterval, (self.buy_time - now).total_seconds()))
+                time.sleep(min(self.sleepInterval, (self.buy_time - now).total_seconds()))
