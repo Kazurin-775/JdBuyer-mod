@@ -327,6 +327,7 @@ class Session(object):
             if ret:
                 return True
             else:
+                print('Error:', msg)
                 time.sleep(interval)
         return False
 
