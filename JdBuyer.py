@@ -13,6 +13,14 @@ from utils import (
 )
 
 
+def next_trigger_interval(interval):
+    cur_time = time.time()
+    prev_trigger = int(cur_time)
+    prev_trigger -= prev_trigger % interval
+    # print((prev_trigger + interval + 0.1) - cur_time)
+    return min((prev_trigger + interval + 0.1) - cur_time, interval)
+
+
 class Buyer(object):
     """
     京东买手
@@ -90,7 +98,7 @@ class Buyer(object):
                         return
             except Exception as e:
                 logger.error(e)
-            time.sleep(stockInterval)
+            time.sleep(next_trigger_interval(stockInterval))
 
 
 if __name__ == '__main__':
