@@ -185,6 +185,11 @@ class Session(object):
         :return: 商品是否有货 True/False
         """
         resp = self.getItemDetail(skuId, skuNum, areaId).json()
+        print(resp['stockInfo']['stockDesc'], resp['price']['p'])
+        if 'yuyueInfo' in resp:
+            # print('btnText =', resp['yuyueInfo']['btnText'])
+            if resp['yuyueInfo']['btnText'] == '立即预约':
+                return False
         return 'stockInfo' in resp and resp['stockInfo']['isStock']
 
     ############## 购物车相关 #############
